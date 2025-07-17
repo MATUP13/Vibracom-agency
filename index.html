@@ -12,6 +12,8 @@
     <meta property="og:title" content="Vibracom - Agence Marketing Digital">
     <meta property="og:description" content="Spécialistes en branding, marketing digital et développement web">
     <meta property="og:image" content="https://matup13.github.io/Vibracom-agency/images/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -24,11 +26,10 @@
     
     <!-- Critical CSS -->
     <style>
-        .hero { 
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .hero.loaded { opacity: 1; }
+        .header { opacity: 0; transform: translateY(-20px); }
+        .hero { opacity: 0; }
+        .header, .hero { transition: all 0.5s ease; }
+        .header.loaded, .hero.loaded { opacity: 1; transform: translateY(0); }
         
         .header.sticky {
             position: fixed;
@@ -50,9 +51,9 @@
             <a href="index.html" class="logo">
                 <img src="images/logo.svg" alt="Vibracom Logo" width="180" loading="lazy">
             </a>
-            <nav class="nav">
+            <nav class="nav" aria-label="Menu principal">
                 <ul>
-                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#home" aria-current="page">Accueil</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#about">À propos</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
@@ -60,25 +61,21 @@
                 </ul>
             </nav>
             <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
-    <i class="fas fa-bars"></i>
-    <i class="fas fa-times"></i>
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times"></i>
             </button>
         </div>
     </header>
-<picture>
-  <source srcset="images/hero-bg.webp" type="image/webp">
-  <img src="images/hero-bg.jpg" alt="Agence Vibracom" 
-       loading="eager" fetchpriority="high"
-       width="1920" height="1080" class="hero-bg">
-</picture>
-    
+
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <picture>
-    <source srcset="images/hero-bg.webp" type="image/webp">
-    <img src="images/hero-bg.jpg" alt="Background" loading="eager" width="1920" height="1080">
-</picture>
+                <source srcset="images/hero-bg.webp" type="image/webp">
+                <img src="images/hero-bg.jpg" alt="Agence Vibracom" 
+                     class="hero-bg" loading="eager" fetchpriority="high"
+                     width="1920" height="1080">
+            </picture>
             <div class="hero-content">
                 <h1>Donnez vie à votre marque</h1>
                 <p class="subtitle">Nous créons des stratégies digitales sur mesure pour propulser votre business</p>
@@ -87,11 +84,21 @@
         </div>
     </section>
 
-    <!-- Le reste de votre contenu reste inchangé jusqu'au footer -->
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Nos Services</h2>
+            <div class="services-grid">
+                <!-- Contenu des services -->
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <!-- Contenu du footer inchangé -->
+        <div class="container">
+            <!-- Contenu du footer -->
+        </div>
     </footer>
 
     <!-- Floating CTA Button -->
