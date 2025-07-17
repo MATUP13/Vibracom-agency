@@ -21,6 +21,7 @@
 
 html {
     scroll-behavior: smooth;
+    
 }
 
 body {
@@ -311,4 +312,53 @@ img.lazyloaded {
     font-size: 1.5rem;
     color: var(--dark-color);
     cursor: pointer;
+
+    /* ==================== */
+/* MENU MOBILE - ICONES */
+/* ==================== */
+.menu-toggle {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    z-index: 1000;
+    display: none; /* Caché par défaut */
+}
+
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: block; /* Visible en mobile */
+    }
+
+    .menu-toggle i {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.8rem;
+        color: var(--dark-color);
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .menu-toggle .fa-bars {
+        opacity: 1;
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    .menu-toggle .fa-times {
+        opacity: 0;
+        transform: translateY(-50%) rotate(-180deg);
+    }
+
+    .menu-toggle.active .fa-bars {
+        opacity: 0;
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .menu-toggle.active .fa-times {
+        opacity: 1;
+        transform: translateY(-50%) rotate(0deg);
+    }
+}
 }
