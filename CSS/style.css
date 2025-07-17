@@ -362,3 +362,15 @@ img.lazyloaded {
     }
 }
 }
+/* Menu Toggle Animation */
+.menu-toggle { position: relative; width: 30px; height: 30px; }
+.menu-toggle i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.menu-toggle .fa-times { opacity: 0; transform: translateY(-50%) rotate(-90deg); }
+.menu-toggle.active .fa-bars { opacity: 0; transform: translateY(-50%) rotate(90deg); }
+.menu-toggle.active .fa-times { opacity: 1; transform: translateY(-50%) rotate(0deg); }
