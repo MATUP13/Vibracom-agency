@@ -4,36 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibracom - Agence de Marketing Digital</title>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibracom - Agence de Marketing Digital</title>
-  
-    <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://matup13.github.io/Vibracom-agency/">
-<meta property="og:title" content="Vibracom - Agence Marketing Digital">
-<meta property="og:description" content="Spécialistes en branding, marketing digital et développement web">
-<meta property="og:image" content="https://matup13.github.io/Vibracom-agency/images/logo.png">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-</head>
     <meta name="description" content="Vibracom est une agence spécialisée en branding, marketing digital, réseaux sociaux et développement web. Nous donnons vie à votre marque.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matup13.github.io/Vibracom-agency/">
+    <meta property="og:title" content="Vibracom - Agence Marketing Digital">
+    <meta property="og:description" content="Spécialistes en branding, marketing digital et développement web">
+    <meta property="og:image" content="https://matup13.github.io/Vibracom-agency/images/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        .hero { 
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero.loaded { opacity: 1; }
+        
+        .header.sticky {
+            position: fixed;
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">
-                <img src="images/logo.svg" alt="Vibracom Logo" width="180">
+                <img src="images/logo.svg" alt="Vibracom Logo" width="180" loading="lazy">
             </a>
             <nav class="nav">
                 <ul>
@@ -44,7 +59,7 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <button class="menu-toggle">
+            <button class="menu-toggle" aria-label="Menu mobile">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -53,289 +68,33 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <!-- Remplacer par : -->
-<picture>
-  <source srcset="images/hero-bg.webp" type="image/webp">
-  <div class="hero" style="background-image: url('images/hero-bg.jpg')">
-</picture>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title">Nos Services</h2>
-            <p class="section-subtitle">Nous offrons des solutions complètes pour votre présence digitale</p>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Branding</h3>
-                    <p>Création et développement d'identités de marque fortes et mémorables qui se démarquent.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Marketing Digital</h3>
-                    <p>Stratégies digitales sur mesure pour atteindre vos objectifs business efficacement.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hashtag"></i>
-                    </div>
-                    <h3>Réseaux Sociaux</h3>
-                    <p>Contenu engageant et gestion de communauté pour maximiser votre présence sociale.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Développement Web</h3>
-                    <p>Sites web performants, responsive et optimisés pour le référencement.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-ad"></i>
-                    </div>
-                    <h3>Publicité Digitale</h3>
-                    <p>Campagnes ciblées sur Meta, Google, TikTok et autres plateformes publicitaires.</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Stratégie sur mesure</h3>
-                    <p>Solutions personnalisées adaptées à vos besoins spécifiques et objectifs.</p>
-                </div>
+            <picture>
+                <source srcset="images/hero-bg.webp" type="image/webp">
+                <img src="images/hero-bg.jpg" alt="Background hero" loading="eager" class="hero-bg">
+            </picture>
+            <div class="hero-content">
+                <h1>Donnez vie à votre marque</h1>
+                <p class="subtitle">Nous créons des stratégies digitales sur mesure pour propulser votre business</p>
+                <a href="#contact" class="btn btn-primary">Discutons de votre projet</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <h2 class="section-title">Notre Approche</h2>
-                <p>Chez Vibracom, nous croyons en la puissance d'une stratégie digitale bien pensée. Notre approche combine créativité, données et technologie pour offrir des résultats tangibles.</p>
-                
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="150">0</span>+
-                        <span class="stat-label">Clients satisfaits</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="300">0</span>+
-                        <span class="stat-label">Projets réalisés</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" data-count="15">0</span>+
-                        <span class="stat-label">Experts</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-image">
-                <img src="images/about-team.jpg" alt="Équipe Vibracom">
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="section-title">Nos Réalisations</h2>
-            <p class="section-subtitle">Découvrez quelques-uns de nos projets récents</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="images/portfolio/branding-project.jpg" alt="Projet Branding">
-                    <div class="portfolio-overlay">
-                        <h3>Rebranding Luxe</h3>
-                        <p>Identité visuelle pour une marque de luxe</p>
-                        <a href="#" class="btn btn-outline">Voir le projet</a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <img src="images/portfolio/social-media-project.jpg" alt="Projet Réseaux Sociaux">
-                    <div class="portfolio-overlay">
-                        <h3>Stratégie Social Media</h3>
-                        <p>+250% d'engagement en 3 mois</p>
-                        <a href="#" class="btn btn-outline">Voir le projet</a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <img src="images/portfolio/web-project.jpg" alt="Projet Développement Web">
-                    <div class="portfolio-overlay">
-                        <h3>E-commerce Premium</h3>
-                        <p>Augmentation des ventes de 180%</p>
-                        <a href="#" class="btn btn-outline">Voir le projet</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <a href="#" class="btn btn-secondary">Voir tous nos projets</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Ce qu'ils disent de nous</h2>
-            
-            <div class="testimonials-slider">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        <p>"Vibracom a complètement transformé notre présence en ligne. Leur approche stratégique a augmenté notre visibilité et nos ventes de manière significative."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/testimonials/client1.jpg" alt="Client">
-                        <div>
-                            <h4>Sophie Martin</h4>
-                            <span>CEO, BelleMarque</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        <p>"Le nouveau site web créé par Vibracom a dépassé nos attentes. Non seulement il est magnifique, mais il convertit aussi beaucoup mieux que notre ancienne plateforme."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="images/testimonials/client2.jpg" alt="Client">
-                        <div>
-                            <h4>Thomas Leroy</h4>
-                            <span>Directeur Marketing, TechSolutions</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title">Prêt à booster votre business?</h2>
-                <p>Contactez-nous pour discuter de votre projet et découvrir comment nous pouvons vous aider à atteindre vos objectifs.</p>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>contact@vibracom.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+33 1 23 45 67 89</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>123 Rue du Digital, Paris, France</span>
-                    </div>
-                </div>
-                
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-            
-            <div class="contact-form">
-                <form>
-                    <div class="form-group">
-                        <input type="text" placeholder="Votre nom" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Votre email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Votre téléphone">
-                    </div>
-                    <div class="form-group">
-                        <select>
-                            <option value="">Service intéressé</option>
-                            <option value="branding">Branding</option>
-                            <option value="marketing">Marketing Digital</option>
-                            <option value="social">Réseaux Sociaux</option>
-                            <option value="web">Développement Web</option>
-                            <option value="ads">Publicité Digitale</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Dites-nous en plus sur votre projet..." rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Envoyer le message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    <!-- Le reste de votre contenu reste inchangé jusqu'au footer -->
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-logo">
-                <img src="images/logo-white.svg" alt="Vibracom Logo" width="150">
-                <p>Donnez vie à votre marque avec des stratégies digitales sur mesure.</p>
-            </div>
-            
-            <div class="footer-links">
-                <h3>Liens rapides</h3>
-                <ul>
-                    <li><a href="#home">Accueil</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">À propos</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-services">
-                <h3>Nos Services</h3>
-                <ul>
-                    <li><a href="#">Branding</a></li>
-                    <li><a href="#">Marketing Digital</a></li>
-                    <li><a href="#">Réseaux Sociaux</a></li>
-                    <li><a href="#">Développement Web</a></li>
-                    <li><a href="#">Publicité Digitale</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-newsletter">
-                <h3>Newsletter</h3>
-                <p>Abonnez-vous pour recevoir nos conseils et actualités.</p>
-                <form>
-                    <input type="email" placeholder="Votre email">
-                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="container">
-                <p>&copy; 2023 Vibracom. Tous droits réservés.</p>
-                <div class="legal-links">
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Conditions d'utilisation</a>
-                </div>
-            </div>
-        </div>
+        <!-- Contenu du footer inchangé -->
     </footer>
 
-    <head>
+    <!-- Floating CTA Button -->
+    <div class="floating-cta">
+        <a href="#contact" class="btn-pulse" aria-label="Contact rapide">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/script.js" defer></script>
-</head>
 </body>
 </html>
