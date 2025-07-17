@@ -1,114 +1,125 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibracom - Agence de Marketing Digital</title>
-    <meta name="description" content="Vibracom est une agence spécialisée en branding, marketing digital, réseaux sociaux et développement web. Nous donnons vie à votre marque.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://matup13.github.io/Vibracom-agency/">
-    <meta property="og:title" content="Vibracom - Agence Marketing Digital">
-    <meta property="og:description" content="Spécialistes en branding, marketing digital et développement web">
-    <meta property="og:image" content="https://matup13.github.io/Vibracom-agency/images/logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+/* Base Styles */
+:root {
+    --primary-color: #6c63ff;
+    --secondary-color: #4d44db;
+    --accent-color: #ff6584;
+    --dark-color: #2d2d2d;
+    --light-color: #f8f9fa;
+    --gray-color: #6c757d;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Playfair Display', serif;
+    --transition: all 0.3s ease;
+}
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Critical CSS -->
-    <style>
-        .header { opacity: 0; transform: translateY(-20px); }
-        .hero { opacity: 0; }
-        .header, .hero { transition: all 0.5s ease; }
-        .header.loaded, .hero.loaded { opacity: 1; transform: translateY(0); }
-        
-        .header.sticky {
-            position: fixed;
-            background: rgba(255,255,255,0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            animation: slideDown 0.3s ease;
-        }
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-    </style>
-</head>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="images/logo.svg" alt="Vibracom Logo" width="180" loading="lazy">
-            </a>
-            <nav class="nav" aria-label="Menu principal">
-                <ul>
-                    <li><a href="#home" aria-current="page">Accueil</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">À propos</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </header>
+html {
+    scroll-behavior: smooth;
+}
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <picture>
-                <source srcset="images/hero-bg.webp" type="image/webp">
-                <img src="images/hero-bg.jpg" alt="Agence Vibracom" 
-                     class="hero-bg" loading="eager" fetchpriority="high"
-                     width="1920" height="1080">
-            </picture>
-            <div class="hero-content">
-                <h1>Donnez vie à votre marque</h1>
-                <p class="subtitle">Nous créons des stratégies digitales sur mesure pour propulser votre business</p>
-                <a href="#contact" class="btn btn-primary">Discutons de votre projet</a>
-            </div>
-        </div>
-    </section>
+body {
+    font-family: var(--font-primary);
+    color: var(--dark-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: 80px; /* Compensation pour header fixed */
+}
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title">Nos Services</h2>
-            <div class="services-grid">
-                <!-- Contenu des services -->
-            </div>
-        </div>
-    </section>
+/* ... (conserve tout votre CSS existant jusqu'à .floating-cta) ... */
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <!-- Contenu du footer -->
-        </div>
-    </footer>
+/* Testimonials Slider */
+.testimonial {
+    transition: all 0.5s ease;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.testimonial.active {
+    opacity: 1;
+    height: auto;
+}
 
-    <!-- Floating CTA Button -->
-    <div class="floating-cta">
-        <a href="#contact" class="btn-pulse" aria-label="Contact rapide">
-            <i class="fas fa-phone-alt"></i>
-        </a>
-    </div>
+/* Animations */
+[class*="animate"] {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+.animate {
+    transform: translateY(0);
+    opacity: 1;
+}
 
-    <!-- Scripts -->
-    <script src="js/script.js" defer></script>
-</body>
-</html>
+/* Menu Mobile - Version optimisée */
+.menu-toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    display: none;
+}
+
+.menu-toggle i {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-size: 1.8rem;
+    color: var(--dark-color);
+}
+
+.menu-toggle .fa-times {
+    opacity: 0;
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+.menu-toggle.active .fa-bars {
+    opacity: 0;
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.menu-toggle.active .fa-times {
+    opacity: 1;
+    transform: translateY(-50%) rotate(0deg);
+}
+
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav ul {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--white-color);
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        transform: translateY(-150%);
+        opacity: 0;
+        transition: all 0.4s ease;
+        z-index: 998;
+    }
+
+    .nav ul.active {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .nav ul li {
+        margin: 15px 0;
+        text-align: center;
+    }
+}
