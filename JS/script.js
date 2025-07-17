@@ -1,17 +1,16 @@
-// Constants.js (à créer)
-const SELECTORS = {
-    HERO: '.hero',
-    MENU_TOGGLE: '.menu-toggle',
-    NAV: '.nav ul',
-    STATS: '.stats',
-    HEADER: '.header',
-    TESTIMONIALS: '.testimonial',
-    ANIMATE_ELEMS: '.service-card, .portfolio-item'
-};
-
-// Main.js (version optimisée)
-class App {
+class VibracomApp {
     constructor() {
+        this.selectors = {
+            HERO: '.hero',
+            MENU_TOGGLE: '.menu-toggle',
+            NAV: '.nav ul',
+            STATS: '.stats',
+            STAT_NUMBERS: '.stat-number',
+            HEADER: '.header',
+            TESTIMONIALS: '.testimonial',
+            ANIMATE_ELEMS: '.service-card, .portfolio-item',
+            NAV_LINKS: '.nav a'
+        };
         this.init();
     }
 
@@ -27,9 +26,8 @@ class App {
         });
     }
 
-    // 1. Hero Loader (optimisé)
     initHero() {
-        const hero = document.querySelector(SELECTORS.HERO);
+        const hero = document.querySelector(this.selectors.HERO);
         if (!hero) return;
 
         const handleLoad = () => {
@@ -37,17 +35,15 @@ class App {
             window.removeEventListener('load', handleLoad);
         };
 
-        if (document.readyState === 'complete') {
-            hero.classList.add('loaded');
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
+        document.readyState === 'complete' 
+            ? hero.classList.add('loaded')
+            : window.addEventListener('load', handleLoad);
     }
 
-    // 2. Menu Mobile (version robuste)
     initMobileMenu() {
-        const menuToggle = document.querySelector(SELECTORS.MENU_TOGGLE);
-        const nav = document.querySelector(SELECTORS.NAV);
+        const { MENU_TOGGLE, NAV, NAV_LINKS } = this.selectors;
+        const menuToggle = document.querySelector(MENU_TOGGLE);
+        const nav = document.querySelector(NAV);
         if (!menuToggle || !nav) return;
 
         const toggleMenu = (shouldClose = false) => {
@@ -55,15 +51,13 @@ class App {
             nav.classList.toggle('active', isActive);
             menuToggle.classList.toggle('active', isActive);
             menuToggle.setAttribute('aria-expanded', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
         };
 
-        // Événements
         menuToggle.addEventListener('click', () => toggleMenu());
-        
-        document.querySelectorAll('.nav a').forEach(link => {
+        document.querySelectorAll(NAV_LINKS).forEach(link => {
             link.addEventListener('click', () => toggleMenu(true));
         });
-
         document.addEventListener('click', (e) => {
             if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
                 toggleMenu(true);
@@ -71,19 +65,17 @@ class App {
         });
     }
 
-    // 3. Stats Animation (version précise)
     initStatsAnimation() {
-        const statsSection = document.querySelector(SELECTORS.STATS);
+        const statsSection = document.querySelector(this.selectors.STATS);
         if (!statsSection) return;
 
         const animateValue = (el, target, duration) => {
             let start = null;
             const step = (timestamp) => {
-                if (!start) start = timestamp;
+                start = start || timestamp;
                 const progress = timestamp - start;
-                const percentage = Math.min(progress / duration, 1);
-                el.textContent = Math.floor(percentage * target);
-                if (percentage < 1) requestAnimationFrame(step);
+                el.textContent = Math.floor(Math.min(progress/duration, 1) * target);
+                if (progress < duration) requestAnimationFrame(step);
             };
             requestAnimationFrame(step);
         };
@@ -91,18 +83,16 @@ class App {
         new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    document.querySelectorAll('.stat-number').forEach(stat => {
-                        animateValue(stat, parseInt(stat.dataset.count) || 0, 2000);
-                    });
+                    document.querySelectorAll(this.selectors.STAT_NUMBERS)
+                        .forEach(el => animateValue(el, +el.dataset.count || 0, 2000));
                 }
             });
-        }, { threshold: 0.5 }).observe(statsSection);
+        }, { threshold: 0.5, rootMargin: '0px 0px -100px 0px' }).observe(statsSection);
     }
 
-    // 4. Smooth Scroll (avec polyfill)
     initSmoothScroll() {
         if (!('scrollBehavior' in document.documentElement.style)) {
-            import('smoothscroll-polyfill').then(module => module.polyfill());
+            import('smoothscroll-polyfill').then(m => m.polyfill());
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -110,9 +100,9 @@ class App {
                 e.preventDefault();
                 const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
-                    const offset = document.querySelector(SELECTORS.HEADER)?.offsetHeight || 80;
+                    const header = document.querySelector(this.selectors.HEADER);
                     window.scrollTo({
-                        top: target.offsetTop - offset,
+                        top: target.offsetTop - (header?.offsetHeight || 80),
                         behavior: 'smooth'
                     });
                 }
@@ -120,22 +110,17 @@ class App {
         });
     }
 
-    // 5. Sticky Header (optimisé)
     initStickyHeader() {
-        const header = document.querySelector(SELECTORS.HEADER);
+        const header = document.querySelector(this.selectors.HEADER);
         if (!header) return;
 
-        const handleScroll = () => {
-            header.classList.toggle('sticky', window.scrollY > 100);
-        };
-        
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Init state
+        const handler = () => header.classList.toggle('sticky', window.scrollY > 100);
+        window.addEventListener('scroll', handler, { passive: true });
+        handler();
     }
 
-    // 6. Testimonials (avec pause tactile)
     initTestimonials() {
-        const testimonials = document.querySelectorAll(SELECTORS.TESTIMONIALS);
+        const testimonials = document.querySelectorAll(this.selectors.TESTIMONIALS);
         if (testimonials.length < 2) return;
 
         let current = 0;
@@ -148,21 +133,21 @@ class App {
         };
 
         const startSlider = () => {
+            clearInterval(interval);
             interval = setInterval(() => {
                 current = (current + 1) % testimonials.length;
                 showTestimonial(current);
             }, 5000);
         };
 
-        // Gestion des événements
-        const handleInteraction = () => {
+        const pauseSlider = () => {
             clearInterval(interval);
-            setTimeout(startSlider, 10000); // Reprise après 10s
+            setTimeout(startSlider, 10000);
         };
 
         testimonials.forEach(t => {
-            t.addEventListener('touchstart', handleInteraction);
-            t.addEventListener('mouseenter', handleInteraction);
+            t.addEventListener('mouseenter', pauseSlider);
+            t.addEventListener('touchstart', pauseSlider);
             t.addEventListener('mouseleave', startSlider);
         });
 
@@ -170,24 +155,18 @@ class App {
         startSlider();
     }
 
-    // 7. Scroll Animations (optimisé)
     initScrollAnimations() {
-        const elements = document.querySelectorAll(SELECTORS.ANIMATE_ELEMS);
+        const elements = document.querySelectorAll(this.selectors.ANIMATE_ELEMS);
         if (!elements.length) return;
 
         new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
-                    // observer.unobserve(entry.target); // À activer si nécessaire
                 }
             });
-        }, { 
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        }).observe(elements);
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }).observe(elements);
     }
 }
 
-// Initialisation
-new App();
+new VibracomApp();
