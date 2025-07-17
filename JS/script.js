@@ -1,3 +1,13 @@
+// Chargement hero image
+window.addEventListener('load', function() {
+  document.querySelector('.hero').classList.add('loaded');
+});
+
+// Sticky header
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('.header');
+  header.classList.toggle('sticky', window.scrollY > 100);
+});
 // Script principal pour le site Vibracom
 
 document.addEventListener('DOMContentLoaded', function() {
