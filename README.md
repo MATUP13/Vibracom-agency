@@ -11,6 +11,7 @@ Site officiel de l'agence marketing Vibracom, spécialisée en :
 - HTML5, CSS3, JavaScript
 - Design responsive
 - Animations modernes
+- API
 
 ## Accès au site
 Le site est disponible à l'adresse : [https://[votre-username.github.io/vibracom-website/](https://github.com/MATUP13/Vibracom-agency)]
