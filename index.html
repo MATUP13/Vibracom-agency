@@ -234,60 +234,6 @@
     </div>
 
     <!-- Scripts -->
-    <script>
-        // Chargement des éléments
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animation d'entrée
-            setTimeout(function() {
-                document.querySelector('.header').classList.add('loaded');
-                document.querySelector('.hero').classList.add('loaded');
-            }, 100);
-            
-            // Menu mobile
-            const menuToggle = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('.nav');
-            
-            menuToggle.addEventListener('click', function() {
-                this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
-                nav.classList.toggle('active');
-                document.body.classList.toggle('no-scroll');
-            });
-            
-            // Sticky header
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.header');
-                if (window.scrollY > 100) {
-                    header.classList.add('sticky');
-                } else {
-                    header.classList.remove('sticky');
-                }
-            });
-            
-            // Smooth scrolling pour les ancres
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Fermer le menu mobile si ouvert
-                        if (nav.classList.contains('active')) {
-                            menuToggle.setAttribute('aria-expanded', 'false');
-                            nav.classList.remove('active');
-                            document.body.classList.remove('no-scroll');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+<script src="js/script.js" defer></script>
 </body>
 </html>
