@@ -309,6 +309,12 @@
         </a>
     </div>
 
+
+<script type="module">
+  import { saveContact } from './firebase-config.js';
+  window.saveContact = saveContact; // Rend accessible partout
+</script>
+    
     <!-- Scripts -->
     <script src="js/script.js" defer></script>
 </body>
