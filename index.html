@@ -1,20 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibracom - Agence de Marketing Digital</title>
     <meta name="description" content="Vibracom est une agence spécialisée en branding, marketing digital, réseaux sociaux et développement web. Nous donnons vie à votre marque.">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9SW02ZXGZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <meta name="author" content="Vibracom">
+    <meta name="geo.region" content="TN-NB">
+    <meta name="geo.placename" content="Nabeul">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://matup13.github.io/Vibracom-agency/">
+    
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Vibracom",
+      "image": "https://matup13.github.io/Vibracom-agency/images/logo.png",
+      "description": "Agence spécialisée en marketing, marketing digital et développement web. Nous ne sommes pas une simple agence, nous sommes un partenaire d'affaires fiable et efficace.",
+      "url": "https://matup13.github.io/Vibracom-agency/",
+      "telephone": "+21656172572",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pépinière d'entreprises Elan Technologique - Nabeul",
+        "addressLocality": "Nabeul",
+        "addressRegion": "Nabeul",
+        "postalCode": "8000",
+        "addressCountry": "TN"
+      },
+      "sameAs": [
+        "https://www.facebook.com/vibracom.agency",
+        "https://www.linkedin.com/company/vibracom-agency",
+        "https://www.instagram.com/vibracom.agency"
+      ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://matup13.github.io/Vibracom-agency/"
+        }
+      ]
+    }
+    </script>
 
-  gtag('config', 'G-Z9SW02ZXGZ');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9SW02ZXGZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Z9SW02ZXGZ');
+    </script>
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -31,107 +80,115 @@
     <meta property="twitter:title" content="Vibracom - Agence Marketing Digital">
     <meta property="twitter:description" content="Spécialistes en branding, marketing digital et développement web">
     <meta property="twitter:image" content="https://matup13.github.io/Vibracom-agency/images/logo.png">
-    
-    <!-- Favicon -->
+
+    <!-- Theme & Favicon -->
+    <meta name="theme-color" content="#2c3e50">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Preload CSS & Fonts -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap">
+    </noscript>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Critical CSS -->
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #e74c3c;
-            --text-color: #333;
-            --light-bg: #f9f9f9;
-            --white: #ffffff;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        
-        .header { 
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-            opacity: 0; 
-            transform: translateY(-20px); 
-        }
-        
-        .hero { 
-            opacity: 0; 
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .header, .hero { transition: all 0.5s ease; }
-        .header.loaded, .hero.loaded { opacity: 1; transform: translateY(0); }
-        
-        .header.sticky {
-            background: rgba(255,255,255,0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 10px 0;
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-        
-        /* Styles de base pour les boutons */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: 2px solid var(--secondary-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--secondary-color);
-        }
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #e74c3c;
+        --text-color: #333;
+        --light-bg: #f9f9f9;
+        --white: #ffffff;
+      }
+      
+      body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+      
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+      
+      .header { 
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 15px 0;
+        transition: all 0.3s ease;
+        opacity: 0; 
+        transform: translateY(-20px); 
+      }
+      
+      .hero { 
+        opacity: 0; 
+        position: relative;
+        height: 100vh;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+      }
+      
+      .header, .hero { transition: all 0.5s ease; }
+      .header.loaded, .hero.loaded { opacity: 1; transform: translateY(0); }
+      
+      .header.sticky {
+        background: rgba(255,255,255,0.98);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 10px 0;
+        animation: slideDown 0.3s ease;
+      }
+      
+      @keyframes slideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
+      }
+      
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+      
+      .btn-primary {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: 2px solid var(--secondary-color);
+      }
+      
+      .btn-primary:hover {
+        background-color: transparent;
+        color: var(--secondary-color);
+      }
     </style>
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KF9D8V23"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KF9D8V23"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     
     <!-- Header -->
     <header class="header">
@@ -148,7 +205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+            <button class="menu-toggle" aria-label="Ouvrir/fermer le menu" aria-expanded="false">
                 <span class="menu-icon"><i class="fas fa-bars"></i></span>
                 <span class="close-icon"><i class="fas fa-times"></i></span>
             </button>
@@ -160,6 +217,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="container">
             <picture>
                 <source srcset="images/hero-bg.webp" type="image/webp">
+                <source srcset="images/hero-bg.jpg" type="image/jpeg">
                 <img src="images/hero-bg.jpg" 
                      alt="Agence Vibracom"
                      class="hero-bg" 
@@ -230,16 +288,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="footer-contact">
                     <h3>Contact</h3>
                     <p><i class="fas fa-envelope"></i> contact@vibracom.com</p>
-                    <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-phone"></i> +216 56 172 572</p>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2023 Vibracom. Tous droits réservés.</p>
                 <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/vibracom.agency" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/vibracom.agency" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/vibracom-agency" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
