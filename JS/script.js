@@ -4,20 +4,18 @@ class VibracomApp {
             HERO: '.hero',
             MENU_TOGGLE: '.menu-toggle',
             NAV: '.nav',
-            STATS: '.stats',
-            STAT_NUMBERS: '.stat-number',
+            NAV_LINKS: '.nav a',
             HEADER: '.header',
             TESTIMONIALS: '.testimonial',
-            ANIMATE_ELEMS: '.service-card, .portfolio-item, .about-feature',
-            NAV_LINKS: '.nav a',
+            ANIMATE_ELEMS: '[class*="animate"]',
             FLOATING_CTA: '.floating-cta',
-            LOADER: '.page-loader'
+            BTN_PULSE: '.btn-pulse',
+            CONTACT_FORM: '#contact-form'
         };
         this.init();
     }
 
     init() {
-        // Initialisation différée pour meilleures performances
         if (document.readyState === 'complete') {
             this.setupApp();
         } else {
@@ -26,31 +24,20 @@ class VibracomApp {
     }
 
     setupApp() {
-        this.initLoader();
-        this.initHero();
+        this.initHeroAnimation();
         this.initMobileMenu();
-        this.initStatsAnimation();
         this.initSmoothScroll();
         this.initStickyHeader();
-        this.initTestimonials();
         this.initScrollAnimations();
         this.initFloatingCTA();
+        this.initContactForm();
     }
 
-    initLoader() {
-        const loader = document.querySelector(this.selectors.LOADER);
-        if (loader) {
-            // Cache le loader après le chargement complet
-            window.addEventListener('load', () => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.remove(), 500);
-            });
-        }
-    }
-
-    initHero() {
+    initHeroAnimation() {
         const hero = document.querySelector(this.selectors.HERO);
-        if (hero) hero.classList.add('loaded');
+        if (hero) {
+            hero.classList.add('loaded');
+        }
     }
 
     initMobileMenu() {
@@ -59,37 +46,27 @@ class VibracomApp {
         if (!toggle || !nav) return;
 
         const toggleMenu = (state) => {
-            const isActive = typeof state === 'boolean' ? state : !nav.classList.contains('active');
+            const isActive = state ?? !nav.classList.contains('active');
             
             nav.classList.toggle('active', isActive);
             toggle.classList.toggle('active', isActive);
             toggle.setAttribute('aria-expanded', isActive);
             document.body.style.overflow = isActive ? 'hidden' : '';
-            
-            // Animation des icônes
-            const menuIcon = toggle.querySelector('.menu-icon');
-            const closeIcon = toggle.querySelector('.close-icon');
-            if (menuIcon && closeIcon) {
-                menuIcon.style.display = isActive ? 'none' : 'block';
-                closeIcon.style.display = isActive ? 'block' : 'none';
-            }
         };
 
-        // Gestion des événements
+        // Événements
         toggle.addEventListener('click', () => toggleMenu());
         
         document.querySelectorAll(this.selectors.NAV_LINKS).forEach(link => {
             link.addEventListener('click', () => toggleMenu(false));
         });
 
-        // Fermeture en cliquant à l'extérieur
         document.addEventListener('click', (e) => {
             if (!nav.contains(e.target) && !toggle.contains(e.target)) {
                 toggleMenu(false);
             }
         });
 
-        // Fermeture avec la touche Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && nav.classList.contains('active')) {
                 toggleMenu(false);
@@ -97,52 +74,11 @@ class VibracomApp {
         });
     }
 
-    initStatsAnimation() {
-        const statsSection = document.querySelector(this.selectors.STATS);
-        if (!statsSection) return;
-
-        const animateValue = (el, target, duration) => {
-            const start = performance.now();
-            const initial = parseInt(el.textContent) || 0;
-            
-            const step = (timestamp) => {
-                const progress = timestamp - start;
-                const percentage = Math.min(progress / duration, 1);
-                const current = Math.floor(initial + (target - initial) * percentage);
-                
-                el.textContent = current.toLocaleString();
-                
-                if (percentage < 1) {
-                    requestAnimationFrame(step);
-                }
-            };
-            
-            requestAnimationFrame(step);
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll(this.selectors.STAT_NUMBERS)
-                        .forEach(el => animateValue(el, parseInt(el.dataset.count) || 0, 1500));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        observer.observe(statsSection);
-    }
-
     initSmoothScroll() {
-        // Polyfill conditionnel
-        if (!('scrollBehavior' in document.documentElement.style)) {
-            import('smoothscroll-polyfill').then(m => m.polyfill());
-        }
-
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 const targetId = anchor.getAttribute('href');
-                if (targetId === '#') return;
+                if (targetId === '#' || targetId === '#!') return;
                 
                 const target = document.querySelector(targetId);
                 if (!target) return;
@@ -158,8 +94,7 @@ class VibracomApp {
                     behavior: 'smooth'
                 });
 
-                // Mise à jour de l'URL sans rechargement
-                history.pushState(null, null, targetId);
+                history.replaceState(null, null, targetId);
             });
         });
     }
@@ -169,78 +104,14 @@ class VibracomApp {
         if (!header) return;
 
         const handler = () => {
-            const scrollY = window.scrollY;
-            header.classList.toggle('sticky', scrollY > 100);
-            header.style.transition = scrollY > 100 ? 'all 0.3s ease' : 'none';
+            header.classList.toggle('sticky', window.scrollY > 50);
         };
 
-        // Utilisation de requestAnimationFrame pour de meilleures performances
-        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    handler();
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            window.requestAnimationFrame(handler);
         }, { passive: true });
 
-        // Initialisation
         handler();
-    }
-
-    initTestimonials() {
-        const testimonials = document.querySelectorAll(this.selectors.TESTIMONIALS);
-        if (testimonials.length < 2) return;
-
-        let currentIndex = 0;
-        let intervalId;
-        const transitionDuration = 5000;
-
-        const showTestimonial = (index) => {
-            testimonials.forEach((t, i) => {
-                t.classList.toggle('active', i === index);
-            });
-        };
-
-        const nextTestimonial = () => {
-            currentIndex = (currentIndex + 1) % testimonials.length;
-            showTestimonial(currentIndex);
-        };
-
-        const startSlider = () => {
-            clearInterval(intervalId);
-            intervalId = setInterval(nextTestimonial, transitionDuration);
-        };
-
-        const pauseSlider = () => {
-            clearInterval(intervalId);
-        };
-
-        // Contrôles interactifs
-        testimonials.forEach(t => {
-            t.addEventListener('mouseenter', pauseSlider);
-            t.addEventListener('mouseleave', startSlider);
-            t.addEventListener('touchstart', pauseSlider);
-            t.addEventListener('touchend', startSlider);
-        });
-
-        // Navigation clavier
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
-                showTestimonial(currentIndex);
-                pauseSlider();
-            } else if (e.key === 'ArrowRight') {
-                nextTestimonial();
-                pauseSlider();
-            }
-        });
-
-        // Initialisation
-        showTestimonial(0);
-        startSlider();
     }
 
     initScrollAnimations() {
@@ -254,10 +125,7 @@ class VibracomApp {
                     observer.unobserve(entry.target);
                 }
             });
-        }, { 
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        }, { threshold: 0.15 });
 
         elements.forEach(el => observer.observe(el));
     }
@@ -269,30 +137,50 @@ class VibracomApp {
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
-            if (currentScroll <= 0) {
-                cta.style.transform = 'translateY(0)';
-                return;
-            }
+            if (currentScroll <= 0) return;
 
-            if (currentScroll > lastScroll) {
-                // Scroll vers le bas
-                cta.style.transform = 'translateY(100px)';
-            } else {
-                // Scroll vers le haut
-                cta.style.transform = 'translateY(0)';
-            }
+            cta.style.transform = currentScroll > lastScroll 
+                ? 'translateY(100px)' 
+                : 'translateY(0)';
             lastScroll = currentScroll;
         }, { passive: true });
     }
+
+    initContactForm() {
+        const form = document.querySelector(this.selectors.CONTACT_FORM);
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Envoi en cours...';
+                
+                // Simulation d'envoi - À remplacer par un vrai fetch()
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                form.reset();
+                submitBtn.textContent = 'Envoyé !';
+                setTimeout(() => submitBtn.textContent = originalText, 2000);
+            } catch (error) {
+                submitBtn.textContent = 'Erreur';
+                console.error('Erreur:', error);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    }
 }
 
-// Initialisation avec vérification de la prise en charge des classes
-if ('classList' in document.documentElement) {
+// Initialisation
+if ('IntersectionObserver' in window && 'classList' in document.documentElement) {
     new VibracomApp();
 } else {
-    // Fallback pour les vieux navigateurs
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelector('.header')?.classList.add('loaded');
-        document.querySelector('.hero')?.classList.add('loaded');
-    });
+    // Fallback pour vieux navigateurs
+    document.querySelector('.header')?.classList.add('loaded');
+    document.querySelector('.hero')?.classList.add('loaded');
 }
