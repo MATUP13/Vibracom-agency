@@ -1,21 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Contact Client | Vibracom</title>
-  <link rel="stylesheet" href="/Vibracom-agency/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/Vibracom-agency/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
+
 <body>
-  <section class="contact">
+
+  <!-- Header minimal -->
+  <header class="header">
+    <div class="container">
+      <a href="/Vibracom-agency/index.html" class="logo">
+        <img src="/Vibracom-agency/images/logo.svg" alt="Vibracom Logo" width="180" />
+      </a>
+    </div>
+  </header>
+
+  <!-- Section Formulaire -->
+  <section class="contact" style="padding-top: 120px;">
     <div class="container">
       <h2 class="section-title">Formulaire Client</h2>
-      <form action="https://formsubmit.co/ton-email@domaine.com" method="POST">
-        <input type="text" name="Nom" placeholder="Votre nom" required>
-        <input type="email" name="Email" placeholder="Votre email" required>
+      <form action="https://formsubmit.co/ton@email.com" method="POST">
+        <input type="hidden" name="_next" value="/Vibracom-agency/merci.html" />
+        <input type="text" name="Nom" placeholder="Votre nom" required />
+        <input type="email" name="Email" placeholder="Votre email" required />
         <textarea name="Message" placeholder="Expliquez votre besoin..." required></textarea>
         <button type="submit" class="btn btn-primary">Envoyer</button>
       </form>
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="/Vibracom-agency/images/logo.svg" alt="Vibracom Logo" width="150" />
+        </div>
+        <div class="footer-links">
+          <h3>Liens rapides</h3>
+          <ul>
+            <li><a href="/Vibracom-agency/index.html#home">Accueil</a></li>
+            <li><a href="/Vibracom-agency/index.html#services">Services</a></li>
+            <li><a href="/Vibracom-agency/index.html#about">À propos</a></li>
+            <li><a href="/Vibracom-agency/index.html#portfolio">Portfolio</a></li>
+            <li><a href="/Vibracom-agency/index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h3>Contact</h3>
+          <p><i class="fas fa-envelope"></i> contact@vibracom.com</p>
+          <p><i class="fas fa-phone"></i> +216 56 172 572</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Vibracom. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
